@@ -237,3 +237,44 @@ print(ntorka)
 print(ntorka[1]) #pristupamo im preko njihovog indeksa
 #jedino sto ne mozemo sa ntorkama je sto ne mozemo da dodamo novi element i ne mozemo da menjamo elemente ntorke
 #ntorka[1] = 42 ne moze!
+
+#Stringovi
+#imutabilni
+s = 'Hello world!'
+#ne moze s[3] = 'H'
+s_arr = list(s)
+s_arr[3] = '!'
+''.join(s.arr)
+
+import random
+#uniformna raspodela od 0 do 1
+random.random()
+lista = [1,2,3,4,5,6,7]
+random.choices(lista) #vraca neki random broj iz liste
+random.sample(lista, 4) #vraca k elemenata iz liste
+
+#skupovi
+skup = set([3,42,2,3,2,3])
+s1 = set([1,2,3,4,5,6,7])
+s2 = set([5,6,7,8,9,10])
+s1 - s2 #razlika
+s1 | s2 #unija
+s1 & s2 #presek
+
+#mape - niz kljuceva i vrednosti, gde su kljucevi jeidnstveni
+mapa = {
+    'a' : 34,
+    'b' : [34123]
+}
+#moze da sadrzi kljuceve razlicitih tipova
+mapa['c'] = 34 #dodavanje elemenata u mapu
+del mapa['b'] #brisanje elementa iz mape
+
+mapa.items() #da bi pristupili svim elementima
+
+#iteriranje:
+for key, value in mapa.items():
+    print(key, value)
+    
+mapa.keys() #vraca kljuceve
+mapa.values() #vraca vrednosti
