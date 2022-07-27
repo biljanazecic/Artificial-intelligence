@@ -180,6 +180,12 @@ plt.ylabel('y osa')
 
 plt.show()
 
+import pandas as pd
+
+# DataFrame - pandas kada ucitava podatke i kada ih smesta negde to radi u DataFrame
+# ucitava podatke po kolonama
+
+
 
 
 
