@@ -185,8 +185,71 @@ import pandas as pd
 # DataFrame - pandas kada ucitava podatke i kada ih smesta negde to radi u DataFrame
 # ucitava podatke po kolonama
 
+# ucitava podatke u data frame
+df = pd.read_csv('iris.csv')
+type(df)
 
+# ispisuje prvih n redova, ali podrazumevana vrednost je prvih 5
+df.head(n = 10)
 
+# shape nam kaze koliko ima redova i kolona
+df.shape # (150,5)
 
+# size nam kaze koliko ima ukupno celija
+df.size # 750
 
+# ispisuje neke elementarne statistke za svaki od numerickih atributa (count, mean, std, min, 25%, 50%, 75%, max)
+df.describe()
 
+# dobijamo sve kolone
+df.columns
+
+for col in df.columns:
+  print(col)
+  
+# uzorkovanje podataka
+# cesto su nam podaci dimenzija koje nisu pogodne za eksperimentisanje i pravljenje prototipova
+# tj. podaci mogu da budu preveliki
+# bolje je uzeti manji uzorak, kao prototip
+df_sample = df.sample(frac = 0.1) # ovo 0.1 znaci da smo uzeli nekih 10% 
+# i sad ovaj sample ce biti uniformno sample-ovan iz celog skupa podataka
+
+# 1. nacin za indeksiranje
+# da bismo uzeli sve redove ali nekih atributa(kolona):
+df[['sepal_length', 'petal_length']].head()
+# dobicemo sve redove ovog data frame, ali samo one kolone koje smo naveli u listi iznad
+# moze i ovako
+columns = ['sepal_length', 'petal_length']
+df[columns].head()
+
+# 2. nacin za indeksiranje
+# da koristimo zaista integer-e redova i kolona i to radimo preko atributa iloc
+# levo od zareza idu redovi, desno od zareza idu kolone
+x = df.iloc[:,:4] # svi redovi, ali za samo prve 4 kolone # data = ono na osnovu cega predvidjamo
+y = df.iloc[:,-1] # samo poslednja kolona y = df[['species']] # target = ono sta zelimo da predvidimo
+
+# kombinacija ova dva nacina (columns + iloc):
+df.loc[4:10, ['petal_length', 'sepal_width']]
+
+# matplotlib + biblioteka za ucitavanje podataka
+# odvojimo dva atributa, jedan uzmemo kao x osu, a drugi kao y osu
+# i da te uredjene parove stavimo na grafikon kao tacke
+# i da svaku tacku obojimo bojom vrste kojoj pripada
+# vrste cemo da konvertujemo u neku boju i da svaku tacku obojimo onom vrstom kojoj ta tacka pripada
+# scatter u matplotlib-u
+
+plt.scatter([3, 4, 1],[2, 5, 7], c = ['red', 'green', 'blue']) # to su tacke : (3,2), (4,5), (1,7)
+plt.show()
+
+# treba da izmapiramo sve ove vrste u neku boju
+species = df[['species']]
+type(species) # pandas.core.frame.DataFrame
+# postoji nesto bas u data frame-u sto vrednosti iz kolone enumerise tj. konvertuje ih u enumeraciju i zove se Categorical
+categories = pd.Categorical(species)
+categories.codes # uz pomoc codes iz kategorija izvucemo koji su njihovi redni brojevi
+
+petal_length = df[['petal_length']]
+sepal_length = df[['sepal_length']]
+
+plt.scatter(petal_length, sepal_length, c = categories.codes)
+plt.show()
